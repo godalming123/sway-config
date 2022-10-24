@@ -60,7 +60,7 @@ input "type:touchpad" {
 # ===== TOP BAR =====
 # ===================
 
-# === COLORS ===      | border             | background       | text             | indicator
+# === COLORS ======== | border             | background       | text             | indicator
 client.focused          $bg-color            $bg-color          $text-color        $accent-color
 client.unfocused        $alt-bg-color        $alt-bg-color      $faded-text-color  $faded-accent-color
 client.focused_inactive $alt-bg-color        $alt-bg-color      $faded-text-color  $faded-accent-color
@@ -77,7 +77,11 @@ bar {
     colors {
         statusline $text-color
         background $bg-color
-        inactive_workspace $bg $bg $bg
+        
+        #                  border        background    text
+        inactive_workspace $bg-color     $bg-color     $faded-text-color
+        focused_workspace  $bg-color     $bg-color     $text-color
+        urgent_workspace   $urgent-color $urgent-color $text-color
     }
 }
 
