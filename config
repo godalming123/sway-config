@@ -41,7 +41,8 @@ set $faded-accent-color    #063522
 floating_modifier $mod
 workspace_layout tabbed
 title_align center
-font pango:monospace 8 # Font for window titles, will also be used by the bar
+#font pango:monospace 8 # Font for window titles, will also be used by the bar
+default_border none
 #output * bg datadir/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 
 # === GAPS ===
@@ -54,6 +55,10 @@ input "type:touchpad" {
 	tap enabled
 	natural_scroll enabled
 	middle_emulation enabled
+}
+
+input "type:keyboard" {
+	xkb_layout gb
 }
 
 # ===================
