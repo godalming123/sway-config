@@ -15,8 +15,8 @@ set $term alacritty
 set $ws1 "1. general"
 set $ws2 "2. web"
 set $ws3 "3. development"
-set $ws4 "4. virtualisation"
-set $ws5 "5"
+set $ws4 "4. v-box"
+set $ws5 "5. purchasing"
 set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
@@ -43,10 +43,11 @@ workspace_layout tabbed
 title_align center
 #font pango:monospace 8 # Font for window titles, will also be used by the bar
 default_border none
+smart_gaps on
 #output * bg datadir/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 
 # === GAPS ===
-gaps inner 0
+gaps inner 4
 gaps outer 0
 
 # === INPUTS ===
@@ -77,7 +78,7 @@ bar {
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
-    status_command while date +'%d/%m/%y %H:%M'; do sleep 1; done
+    status_command while echo "🔋$(cat /sys/class/power_supply/BAT0/capacity)% $(date +'📅%d/%m/%y ⌚%I:%M')"; do sleep 1; done
 
     colors {
         statusline $text-color
@@ -132,14 +133,10 @@ bindsym $mod+Shift+w move up
 bindsym $mod+Shift+d move right
 
 # USING ARROW KEYS
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Left  move left
+bindsym $mod+Shift+Down  move down
+bindsym $mod+Shift+Up    move up
 bindsym $mod+Shift+Right move right
-
-# === SPLIT ===
-bindsym $mod+h split h # HORIZONTALLY
-bindsym $mod+v split v # VERTICALLY
 
 # === FULLSCREEN FOCUSED ===
 bindsym $mod+f fullscreen toggle
@@ -185,34 +182,21 @@ bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
 # === RELOAD SWAY ===
-bindsym $mod+c reload # reload config
-bindsym $mod+Shift+r restart # restart sway
+bindsym $mod+r reload # reload config
 
 # === EXIT SWAY ===
-bindsym $mod+Shift+e exec "swaymsg exit"
+bindsym $mod+Escape exec "swaymsg exit"
 
 # === RESIZE WINDOW ===
-mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
 
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym a resize shrink width 10 px or 10 ppt
-        bindsym w resize grow height 10 px or 10 ppt
-        bindsym s resize shrink height 10 px or 10 ppt
-        bindsym d resize grow width 10 px or 10 ppt
+# = USING W, A S, D =
+bindsym $mod+Ctrl+a resize shrink width 10 px or 10 ppt
+bindsym $mod+Ctrl+w resize shrink height 10 px or 10 ppt
+bindsym $mod+Ctrl+s resize grow height 10 px or 10 ppt
+bindsym $mod+Ctrl+d resize grow width 10 px or 10 ppt
 
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
-
-        # back to normal: Enter or Escape or $mod+r
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-        bindsym $mod+r mode "default"
-}
-bindsym $mod+r mode "resize"
+# = USING ARROWS =
+bindsym $mod+Ctrl+Left  resize shrink width 10 px or 10 ppt
+bindsym $mod+Ctrl+Down  resize grow height 10 px or 10 ppt
+bindsym $mod+Ctrl+Up    resize shrink height 10 px or 10 ppt
+bindsym $mod+Ctrl+Right resize grow width 10 px or 10 ppt
