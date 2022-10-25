@@ -21,7 +21,7 @@ set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
-set $ws10 "10"
+set $ws10 "10. random"
 
 # === COLORS ===
 set $text-color            #ffffff
@@ -78,7 +78,7 @@ bar {
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
-    status_command while echo "🔋$(cat /sys/class/power_supply/BAT0/capacity)% $(date +'📅%d/%m/%y ⌚%I:%M')"; do sleep 1; done
+    status_command while echo "🔋$(cat /sys/class/power_supply/BAT0/capacity)% $(cat /sys/class/power_supply/BAT0/status) $(date +'📅%d/%m/%y ⌚%I:%M')"; do sleep 60; done
 
     colors {
         statusline $text-color
@@ -106,6 +106,9 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 
 # === OPEN TERMINAL ===
 bindsym $mod+Return exec $term
+
+# === OPEN LAUNCHER ===
+bindsym $mod+e exec tofi-drun -c ~/Documents/sway-config/tofi-theme
 
 # === KILL FOCUSED ===
 bindsym $mod+q kill
