@@ -42,9 +42,13 @@ floating_modifier $mod
 workspace_layout tabbed
 title_align center
 #font pango:monospace 8 # Font for window titles, will also be used by the bar
+#output * bg datadir/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 default_border none
 smart_gaps on
-#output * bg datadir/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+
+# === HIDE TITLEBAR WITH ONE WINDOW
+hide_edge_borders --i3 smart
+smart_borders smart
 
 # === GAPS ===
 gaps inner 4
@@ -78,7 +82,7 @@ bar {
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
-    status_command while echo "🔋$(cat /sys/class/power_supply/BAT0/capacity)% $(cat /sys/class/power_supply/BAT0/status) $(date +'📅%d/%m/%y ⌚%I:%M')"; do sleep 60; done
+    status_command while echo "TODO: PC temp 📝$(free -h | grep Mem: | awk '{print ($3, $7)}') 🔋$(cat /sys/class/power_supply/BAT0/capacity)% $(cat /sys/class/power_supply/BAT0/status) $(date +'📅%d/%m/%y ⌚%I:%M')"; do sleep 60; done
 
     colors {
         statusline $text-color
@@ -101,14 +105,18 @@ bindsym $mod+x exec swaylock --color "$bg-color" & systemctl suspend
 # === ADJUST VOLUME ===
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86AudioMute        exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute     exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+# === ADHUST BRIGHTNESS ===
+bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
+bindsym XF86MonBrightnessUp   exec brightnessctl s 5%+
 
 # === OPEN TERMINAL ===
 bindsym $mod+Return exec $term
 
 # === OPEN LAUNCHER ===
-bindsym $mod+e exec tofi-drun -c ~/Documents/sway-config/tofi-theme
+bindsym $mod+e exec tofi-drun -c ~/Documents/sway-config/tofi-theme --drun-launch true
 
 # === KILL FOCUSED ===
 bindsym $mod+q kill
