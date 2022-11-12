@@ -41,14 +41,19 @@ set $faded-accent-color    #063522
 floating_modifier $mod
 workspace_layout tabbed
 title_align center
-#font pango:monospace 8 # Font for window titles, will also be used by the bar
-#output * bg datadir/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 default_border none
 smart_gaps on
+output "*" bg ~/Documents/sway-config/wallpaper.jpg fit $bg-color
+#font pango:monospace 8 # Font for window titles, will also be used by the bar
+
+# === MONITORS ===
+workspace $ws1 output HDMI-A-1
+focus output HDMI-A-1
+output HDMI1 pos 0 0 res 3200x1800
+output eDP1 pos 350 1800 res 1920x1080
 
 # === HIDE TITLEBAR WITH ONE WINDOW
 hide_edge_borders --i3 smart
-smart_borders smart
 
 # === GAPS ===
 gaps inner 4
@@ -116,7 +121,7 @@ bindsym XF86MonBrightnessUp   exec brightnessctl s 5%+
 bindsym $mod+Return exec $term
 
 # === OPEN LAUNCHER ===
-bindsym $mod+e exec tofi-drun -c ~/Documents/sway-config/tofi-theme --drun-launch true
+bindsym Alt_L exec tofi-drun -c ~/Documents/sway-config/tofi/dmenu --drun-launch true
 
 # === KILL FOCUSED ===
 bindsym $mod+q kill

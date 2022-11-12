@@ -1,0 +1,42 @@
+# size
+width = 100%
+height = 19
+
+# position
+anchor = top
+
+# margins
+margin-top = 0
+margin-left = 0
+margin-right = 0
+margin-bottom = 0
+
+# padding
+padding-left = 10
+padding-top = 0
+padding-right = 10
+padding-bottom = 0
+selection-padding = 10
+
+# colours
+text-color = #CCCCCC
+background-color = #1c1f26
+selection-color = #FFFFFF
+selection-background = #2e3440
+
+# results
+result-spacing = 20
+num-results = 12
+
+# styling
+border-width = 0
+outline-width = 0
+font = monospace
+corner-radius = 0
+
+# other options
+terminal = alacritty
+prompt-text = "Search: "
+exclusive-zone = 19
+horizontal = true
+font-size = 10
