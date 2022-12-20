@@ -30,8 +30,13 @@ set $separator-color       #212121
 set $bg-color              #2f343f
 set $alt-bg-color          #1c1f26
 set $urgent-color          #ef3510
-set $accent-color          #0c6d46
-set $faded-accent-color    #063522
+
+# === ACCENTS ===
+set $red                   #bf616a
+set $orange                #d08770
+set $yellow                #ebcb8b
+set $green                 #a3be8c
+set $purple                #b48ead
 
 # ====================
 # ===== SETTINGS =====
@@ -76,10 +81,10 @@ input "type:keyboard" {
 # ===================
 
 # === COLORS ======== | border             | background       | text             | indicator
-client.focused          $bg-color            $bg-color          $text-color        $accent-color
-client.unfocused        $alt-bg-color        $alt-bg-color      $faded-text-color  $faded-accent-color
-client.focused_inactive $alt-bg-color        $alt-bg-color      $faded-text-color  $faded-accent-color
-client.urgent           $urgent-color        $urgent-color      $text-color        $urgent-color
+client.focused          $bg-color            $bg-color          $text-color        #eeeeee
+client.unfocused        $alt-bg-color        $alt-bg-color      $faded-text-color  #eeeeee
+client.focused_inactive $alt-bg-color        $alt-bg-color      $faded-text-color  #eeeeee
+client.urgent           $urgent-color        $urgent-color      $text-color        #eeeeee
 
 # === SETTINGS ===
 bar {
@@ -95,8 +100,9 @@ bar {
         
         #                  border        background    text
         inactive_workspace $bg-color     $bg-color     $faded-text-color
-        focused_workspace  $bg-color     $bg-color     $text-color
         urgent_workspace   $urgent-color $urgent-color $text-color
+        focused_workspace  $bg-color     $bg-color     $text-color
+	#focused_inactive   $bg-color     $bg-color     $text-color
     }
 }
 
@@ -105,7 +111,7 @@ bar {
 # =======================
 
 # === SLEEP/SUSPEND ===
-bindsym $mod+x exec swaylock --color "$bg-color" & systemctl suspend
+bindsym $mod+x exec swaylock --color "$bg-color" --bs-hl-color "$yellow" --key-hl-color "$green" --ring-color "$alt-bg-color" --inside-color "$alt-bg-color" & systemctl suspend
 
 # === ADJUST VOLUME ===
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
@@ -121,7 +127,7 @@ bindsym XF86MonBrightnessUp   exec brightnessctl s 5%+
 bindsym $mod+Return exec $term
 
 # === OPEN LAUNCHER ===
-bindsym Alt_L exec tofi-drun -c ~/Documents/sway-config/tofi/dmenu --drun-launch true
+bindsym Alt_L exec tofi-drun -c ~/Documents/sway-config/tofi/dmenu | xargs swaymsg exec --
 
 # === KILL FOCUSED ===
 bindsym $mod+q kill
