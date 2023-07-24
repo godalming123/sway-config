@@ -25,10 +25,10 @@ set $ws10 "10. random"
 
 # === COLORS ===
 set $text-color       #ffffff
-set $faded-text-color #a3a3a3
-set $bg-color         #2f343f
-set $alt-bg-color     #1c1f26
-set $urgent-color     #bf616a
+set $faded-text-color #abb2bf
+set $bg-color         #282c34
+set $alt-bg-color     #1e222b
+set $urgent-color     #e06c75
 
 # ====================
 # ===== SETTINGS =====
@@ -72,12 +72,12 @@ bar {
 
     colors {
         statusline $text-color
-        background $bg-color
+        background $alt-bg-color
         
         #                  border        background    text
-        inactive_workspace $bg-color     $bg-color     $faded-text-color
+        inactive_workspace $alt-bg-color $alt-bg-color $faded-text-color
         urgent_workspace   $urgent-color $urgent-color $text-color
-        focused_workspace  $bg-color     $bg-color     $text-color
+        focused_workspace  $alt-bg-color $alt-bg-color $text-color
     }
 }
 
