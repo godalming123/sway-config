@@ -1,4 +1,3 @@
-
 ##################
 # MY SWAY CONFIG #
 ##################
@@ -8,61 +7,39 @@
 # =====================
 
 # === GENERAL ===
-set $mod Mod4
-set $term alacritty
+set $mod     Mod1
+set $term    alacritty
+set $browser firefox
 
 # === WORKSPACES ===
-set $ws1 "1. general"
-set $ws2 "2. web"
-set $ws3 "3. development"
-set $ws4 "4. v-box"
-set $ws5 "5. purchasing"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
+set $ws1  "1. general"
+set $ws2  "2. web"
+set $ws3  "3. development"
+set $ws4  "4. other"
+set $ws5  "5"
+set $ws6  "6"
+set $ws7  "7"
+set $ws8  "8"
+set $ws9  "9"
 set $ws10 "10. random"
 
 # === COLORS ===
-set $text-color            #ffffff
-set $faded-text-color      #a3a3a3
-set $separator-color       #212121
-set $bg-color              #2f343f
-set $alt-bg-color          #1c1f26
-set $urgent-color          #ef3510
-
-# === ACCENTS ===
-set $red                   #bf616a
-set $orange                #d08770
-set $yellow                #ebcb8b
-set $green                 #a3be8c
-set $purple                #b48ead
+set $text-color       #ffffff
+set $faded-text-color #a3a3a3
+set $bg-color         #2f343f
+set $alt-bg-color     #1c1f26
+set $urgent-color     #bf616a
 
 # ====================
 # ===== SETTINGS =====
 # ====================
 
 # === GENERAL ===
-floating_modifier $mod
 workspace_layout tabbed
 title_align center
+output "*" bg ./wallpaper.jpg fit $bg-color
 default_border none
-smart_gaps on
-output "*" bg ~/Documents/sway-config/wallpaper.jpg fit $bg-color
-#font pango:monospace 8 # Font for window titles, will also be used by the bar
-
-# === MONITORS ===
-workspace $ws1 output HDMI-A-1
-focus output HDMI-A-1
-output HDMI1 pos 0 0 res 3200x1800
-output eDP1 pos 350 1800 res 1920x1080
-
-# === HIDE TITLEBAR WITH ONE WINDOW
-hide_edge_borders --i3 smart
-
-# === GAPS ===
-gaps inner 4
-gaps outer 0
+hide_edge_borders --i3 smart # hide titlebars if their is only one window in a container
 
 # === INPUTS ===
 input "type:touchpad" {
@@ -80,7 +57,7 @@ input "type:keyboard" {
 # ===== TOP BAR =====
 # ===================
 
-# === COLORS ======== | border             | background       | text             | indicator
+# === COLORS ===      | border             | background       | text             | indicator
 client.focused          $bg-color            $bg-color          $text-color        #eeeeee
 client.unfocused        $alt-bg-color        $alt-bg-color      $faded-text-color  #eeeeee
 client.focused_inactive $alt-bg-color        $alt-bg-color      $faded-text-color  #eeeeee
@@ -91,8 +68,7 @@ bar {
     position top
 
     # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    status_command while echo "TODO: PC temp 📝$(free -h | grep Mem: | awk '{print ($3, $7)}') 🔋$(cat /sys/class/power_supply/BAT0/capacity)% $(cat /sys/class/power_supply/BAT0/status) $(date +'📅%d/%m/%y ⌚%I:%M')"; do sleep 60; done
+    status_command while echo "TODO: PC temp 📝$(free -h | grep Mem: | awk '{print ($3, $3/$7*100)}')% $(date +'📅%d/%m/%y ⌚%I:%M')"; do sleep 60; done
 
     colors {
         statusline $text-color
@@ -102,7 +78,6 @@ bar {
         inactive_workspace $bg-color     $bg-color     $faded-text-color
         urgent_workspace   $urgent-color $urgent-color $text-color
         focused_workspace  $bg-color     $bg-color     $text-color
-	#focused_inactive   $bg-color     $bg-color     $text-color
     }
 }
 
@@ -111,7 +86,7 @@ bar {
 # =======================
 
 # === SLEEP/SUSPEND ===
-bindsym $mod+x exec swaylock --color "$bg-color" --bs-hl-color "$yellow" --key-hl-color "$green" --ring-color "$alt-bg-color" --inside-color "$alt-bg-color" & systemctl suspend
+bindsym $mod+x exec systemctl suspend
 
 # === ADJUST VOLUME ===
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
@@ -123,61 +98,40 @@ bindsym XF86AudioMicMute     exec --no-startup-id pactl set-source-mute @DEFAULT
 bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
 bindsym XF86MonBrightnessUp   exec brightnessctl s 5%+
 
-# === OPEN TERMINAL ===
+# === OPEN APPS ===
 bindsym $mod+Return exec $term
-
-# === OPEN LAUNCHER ===
-bindsym Alt_L exec tofi-drun -c ~/Documents/sway-config/tofi/dmenu | xargs swaymsg exec --
+bindsym $mod+b      exec $browser
 
 # === KILL FOCUSED ===
 bindsym $mod+q kill
 
 # === CHANGE FOCUSED ===
-
-# USING W, A, S, D
-bindsym $mod+a focus left
-bindsym $mod+s focus down
-bindsym $mod+w focus up
-bindsym $mod+d focus right
-
-# USING ARROW KEYS
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
 # === MOVE FOCUSED ===
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
-# USING W, A, S, D
-bindsym $mod+Shift+a move left
-bindsym $mod+Shift+s move down
-bindsym $mod+Shift+w move up
-bindsym $mod+Shift+d move right
-
-# USING ARROW KEYS
-bindsym $mod+Shift+Left  move left
-bindsym $mod+Shift+Down  move down
-bindsym $mod+Shift+Up    move up
-bindsym $mod+Shift+Right move right
+# === RESIZE FOCUSED ===
+bindsym $mod+Ctrl+h resize shrink width  20 px
+bindsym $mod+Ctrl+k resize shrink height 20 px
+bindsym $mod+Ctrl+l resize grow   width  20 px
+bindsym $mod+Ctrl+j resize grow   height 20 px
 
 # === FULLSCREEN FOCUSED ===
 bindsym $mod+f fullscreen toggle
 
+# === FLOAT FOCUSED ===
+bindsym $mod+space floating toggle
+
 # === CHANGE CONTAINER LAYOUT ===
-bindsym $mod+k layout tabbed
-bindsym $mod+l layout toggle split
-
-# === TOGGLE FLOATING ===
-bindsym $mod+Shift+f floating toggle
-
-# === TOGGLE FLOATING FOR FOCUSED ===
-#bindsym $mod+f focus mode_toggle
-
-# === FOCUS PARENT ===
-#bindsym $mod+p focus parent
-
-# === FOCUS CHILD ===
-#bindsym $mod+c focus child
+bindsym $mod+t layout tabbed
+bindsym $mod+s layout toggle split
 
 # === SWITCH WORKSPACE ===
 bindsym $mod+1 workspace number $ws1
@@ -204,21 +158,7 @@ bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
 # === RELOAD SWAY ===
-bindsym $mod+r reload # reload config
+bindsym $mod+r reload
 
 # === EXIT SWAY ===
 bindsym $mod+Escape exec "swaymsg exit"
-
-# === RESIZE WINDOW ===
-
-# = USING W, A S, D =
-bindsym $mod+Ctrl+a resize shrink width 10 px or 10 ppt
-bindsym $mod+Ctrl+w resize shrink height 10 px or 10 ppt
-bindsym $mod+Ctrl+s resize grow height 10 px or 10 ppt
-bindsym $mod+Ctrl+d resize grow width 10 px or 10 ppt
-
-# = USING ARROWS =
-bindsym $mod+Ctrl+Left  resize shrink width 10 px or 10 ppt
-bindsym $mod+Ctrl+Down  resize grow height 10 px or 10 ppt
-bindsym $mod+Ctrl+Up    resize shrink height 10 px or 10 ppt
-bindsym $mod+Ctrl+Right resize grow width 10 px or 10 ppt
