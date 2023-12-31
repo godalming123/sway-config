@@ -8,8 +8,8 @@
 
 # === GENERAL ===
 set $mod     Mod1
-set $term    alacritty
-set $browser firefox
+set $term    foot
+set $browser epiphany
 
 # === WORKSPACES ===
 set $ws1  "1. general"
@@ -68,7 +68,7 @@ bar {
     position top
 
     # When the status_command prints a new line to stdout, swaybar updates.
-    status_command while echo "TODO: PC temp 📝$(free -h | grep Mem: | awk '{print ($3, $3/$7*100)}')% $(date +'📅%d/%m/%y ⌚%I:%M')"; do sleep 60; done
+    status_command while echo "🌡️$(cat /sys/class/thermal/thermal_zone0/temp | cut -c 1-2) 💿$(free -h | grep Mem: | awk '{print ($3, int($3/$7*100))}')% $(date +'📅%d/%m/%y ⌚%I:%M')"; do sleep 60; done
 
     colors {
         statusline $text-color
