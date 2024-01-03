@@ -66,6 +66,7 @@ client.urgent           $urgent-color        $urgent-color      $text-color     
 bar {
     position top
 
+    # HACK: 🌡️ display
     # When the status_command prints a new line to stdout, swaybar updates.
     status_command while echo "\
 $(test -d /sys/class/power_supply/BAT0/ && echo 🔋$(cat /sys/class/power_supply/BAT0/capacity)%)\
