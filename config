@@ -7,7 +7,7 @@
 # =====================
 
 # === MODKEY ===
-set $mod     Mod1
+set $mod Mod1
 
 # === WORKSPACES ===
 set $ws1  "1. general"
@@ -48,7 +48,8 @@ input "type:touchpad" {
 }
 
 input "type:keyboard" {
-	xkb_layout gb
+	xkb_layout  gb
+	xkb_options caps:escape
 }
 
 # ===================
@@ -104,17 +105,19 @@ bindsym XF86MonBrightnessUp   exec brightnessctl s 5%+
 
 # === OPEN APPS ===
 # TERMINALS
-bindsym $mod+t       exec gnome-terminal
-bindsym $mod+a       exec alacritty
-bindsym $mod+Shift+f exec foot
+bindsym $mod+g exec gnome-terminal
+bindsym $mod+a exec allacrity
+bindsym $mod+o exec foot
 # BROWSERS
-bindsym $mod+f       exec firefox
-bindsym $mod+e       exec epiphany
+bindsym $mod+f exec firefox
+bindsym $mod+e exec epiphany
+bindsym $mod+q exec qutebrowser
+bindsym $mod+c exec chromium-browser
 # FILE MANAGERS
-bindsym $mod+n       exec nautilus
+bindsym $mod+n exec nautilus
 
 # === KILL FOCUSED ===
-bindsym $mod+q kill
+bindsym $mod+d kill
 
 # === CHANGE FOCUSED ===
 bindsym $mod+h focus left
@@ -135,7 +138,7 @@ bindsym $mod+Ctrl+l resize grow   width  20 px
 bindsym $mod+Ctrl+j resize grow   height 20 px
 
 # === FULLSCREEN FOCUSED ===
-bindsym $mod+f fullscreen toggle
+bindsym $mod+Shift+f fullscreen toggle
 
 # === FLOAT FOCUSED ===
 bindsym $mod+space floating toggle
