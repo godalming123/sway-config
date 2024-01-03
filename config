@@ -71,7 +71,7 @@ bar {
     status_command while echo "\
 $(test -d /sys/class/power_supply/BAT0/ && echo 🔋$(cat /sys/class/power_supply/BAT0/capacity)%)\
 🌡️$(cat /sys/class/thermal/thermal_zone0/temp | cut -c 1-2) \
-💿$(free -h | grep Mem: | awk '{print ($3, int($3/$7*100))}')% \
+💿$(free -h | grep Mem: | awk '{print ($3, int($3/$2*100))}')% \
 📅$(date +'%d/%m/%y') \
 ⌚$(date +'%I:%M')\
 "; do sleep 60; done
