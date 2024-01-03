@@ -106,7 +106,7 @@ bindsym XF86MonBrightnessUp   exec brightnessctl s 5%+
 # === OPEN APPS ===
 # TERMINALS
 bindsym $mod+g exec gnome-terminal
-bindsym $mod+a exec allacrity
+bindsym $mod+a exec alacrity
 bindsym $mod+o exec foot
 # BROWSERS
 bindsym $mod+f exec firefox
