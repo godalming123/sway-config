@@ -6,10 +6,8 @@
 # ===== VARIABLES =====
 # =====================
 
-# === GENERAL ===
+# === MODKEY ===
 set $mod     Mod1
-set $term    foot
-set $browser epiphany
 
 # === WORKSPACES ===
 set $ws1  "1. general"
@@ -105,8 +103,15 @@ bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
 bindsym XF86MonBrightnessUp   exec brightnessctl s 5%+
 
 # === OPEN APPS ===
-bindsym $mod+Return exec $term
-bindsym $mod+b      exec $browser
+# TERMINALS
+bindsym $mod+t       exec gnome-terminal
+bindsym $mod+a       exec alacritty
+bindsym $mod+Shift+f exec foot
+# BROWSERS
+bindsym $mod+f       exec firefox
+bindsym $mod+e       exec epiphany
+# FILE MANAGERS
+bindsym $mod+n       exec nautilus
 
 # === KILL FOCUSED ===
 bindsym $mod+q kill
