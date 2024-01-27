@@ -2,6 +2,25 @@
 # MY SWAY CONFIG #
 ##################
 
+######### DEPENDENCIES #########
+### GENERAL SCRIPTING: ###     #
+# sh                           #
+# sleep                        #
+### GETTING SYSTEM STATUS: ### #
+# cat                          #
+# free                         #
+# date                         #
+### TEXT MANIPULATION: ###     #
+# echo                         #
+# test                         #
+# cut                          #
+# grep                         #
+# awk                          #
+### OTHER: ###                 #
+# pactl for volume             #
+# brightnessctl for brightness #
+################################
+
 # =====================
 # ===== VARIABLES =====
 # =====================
@@ -69,7 +88,11 @@ bar {
     # HACK: 🌡️ display
     # When the status_command prints a new line to stdout, swaybar updates.
     status_command while echo "\
-$(test -d /sys/class/power_supply/BAT0/ && echo 🔋$(cat /sys/class/power_supply/BAT0/capacity)%)\
+$(test -d /sys/class/power_supply/BAT0/ && (echo \
+$([ $(cat /sys/class/power_supply/BAT0/capacity) -gt 30 ] && echo 🔋 || echo 🪫)\
+$([ $(cat /sys/class/power_supply/BAT0/status) == Charging ] && echo 🔌)\
+$(cat /sys/class/power_supply/BAT0/capacity)%\
+))\
 🌡️$(cat /sys/class/thermal/thermal_zone0/temp | cut -c 1-2) \
 💿$(free -h | grep Mem: | awk '{print ($3, int($3/$2*100))}')% \
 📅$(date +'%d/%m/%y') \
