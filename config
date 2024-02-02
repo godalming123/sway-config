@@ -2,23 +2,23 @@
 # MY SWAY CONFIG #
 ##################
 
-######### DEPENDENCIES #########
-### GENERAL SCRIPTING: ###     #
-# sh                           #
-# sleep                        #
-### GETTING SYSTEM STATUS: ### #
-# cat                          #
-# free                         #
-# date                         #
-### TEXT MANIPULATION: ###     #
-# echo                         #
-# test                         #
-# grep                         #
-# awk                          #
-### OTHER: ###                 #
-# pactl for volume             #
-# brightnessctl for brightness #
-################################
+###### DEPENDENCIES ######################################
+### GENERAL SCRIPTING: ###                               #
+# sh                                                     #
+# sleep                                                  #
+### GETTING SYSTEM STATUS: ###                           #
+# cat                                                    #
+# free                                                   #
+# date                                                   #
+### TEXT MANIPULATION: ###                               #
+# echo                                                   #
+# test                                                   #
+# grep                                                   #
+# awk                                                    #
+### OTHER: ###                                           #
+# pactl for volume (called 'pulseaudio-utils') on fedora #
+# brightnessctl for brightness                           #
+##########################################################
 
 # =====================
 # ===== VARIABLES =====
@@ -84,13 +84,12 @@ client.urgent           $urgent-color        $urgent-color      $text-color     
 bar {
     position top
 
-    # HACK: 🌡️ display
     # When the status_command prints a new line to stdout, swaybar updates.
     status_command while echo "\
 $(test -d /sys/class/power_supply/BAT0/ && (echo \
 $([ $(cat /sys/class/power_supply/BAT0/capacity) -gt 30 ] && echo 🔋 || echo 🪫)\
-$([ $(cat /sys/class/power_supply/BAT0/status) == Charging ] && echo 🔌)\
-$([ $(cat /sys/class/power_supply/BAT0/status) == Full ] && echo 🔌)\
+$([ $(cat /sys/class/power_supply/BAT0/status) == Charging ] && echo ⚡)\
+$([ $(cat /sys/class/power_supply/BAT0/status) == Full ] && echo ⚡)\
 $(cat /sys/class/power_supply/BAT0/capacity)%\
 ))\
 🌡️$(cat /sys/class/thermal/thermal_zone0/temp | awk '{print ($1/1000)}') \
