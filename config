@@ -28,10 +28,10 @@
 set $mod Mod1
 
 # === WORKSPACES ===
-set $ws1  "1"
-set $ws2  "2"
-set $ws3  "3"
-set $ws4  "4"
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
 
 # === COLORS ===
 set $text-color       #ffffff
@@ -73,19 +73,8 @@ client.urgent           $urgent-color        $urgent-color      $text-color     
 bar {
     position top
 
-    # When the status_command prints a new line to stdout, swaybar updates.
-    status_command while echo "\
-$(test -d /sys/class/power_supply/BAT0/ && (echo \
-$([ $(cat /sys/class/power_supply/BAT0/capacity) -gt 30 ] && echo 🔋 || echo 🪫)\
-$([ $(cat /sys/class/power_supply/BAT0/status) == Charging ] && echo ⚡)\
-$([ $(cat /sys/class/power_supply/BAT0/status) == Full ] && echo ⚡)\
-$(cat /sys/class/power_supply/BAT0/capacity)%\
-))\
-🌡️$(cat /sys/class/thermal/thermal_zone0/temp | awk '{print ($1/1000)}') \
-💿$(free -h | grep Mem: | awk '{print ($3, int($3/$2*100))}')% \
-📅$(date +'%d/%m/%y') \
-⌚$(date +'%I:%M')\
-"; do sleep 60; done
+    # When the status_command prints to stdout, swaybar updates.
+    status_command while echo $(~/.config/sway/status.sh); do sleep 30; done
 
     colors {
         statusline $text-color
@@ -119,9 +108,10 @@ bindsym XF86MonBrightnessUp   exec brightnessctl s 5%+
 # TERMINALS
 bindsym $mod+g exec gnome-terminal
 bindsym $mod+a exec alacrity
-bindsym $mod+o exec foot
+bindsym $mod+f exec foot
 # BROWSERS
-bindsym $mod+f exec firefox
+bindsym $mod+z exec zen-browser
+bindsym $mod+Shift+f exec firefox
 bindsym $mod+e exec epiphany
 bindsym $mod+q exec qutebrowser
 bindsym $mod+c exec chromium-browser
@@ -129,7 +119,7 @@ bindsym $mod+c exec chromium-browser
 bindsym $mod+n exec nautilus
 
 # === KILL FOCUSED ===
-bindsym $mod+d kill
+bindsym $mod+d kill # d stands for delete
 
 # === CHANGE FOCUSED ===
 bindsym $mod+h focus left
@@ -150,7 +140,7 @@ bindsym $mod+Ctrl+l resize grow   width  20 px
 bindsym $mod+Ctrl+j resize grow   height 20 px
 
 # === FULLSCREEN FOCUSED ===
-bindsym $mod+Shift+f fullscreen toggle
+bindsym $mod+m fullscreen toggle # m stands for maxamise
 
 # === FLOAT FOCUSED ===
 bindsym $mod+space floating toggle
@@ -160,22 +150,16 @@ bindsym $mod+t layout tabbed
 bindsym $mod+s layout toggle split
 
 # === SWITCH WORKSPACE ===
-bindsym $mod+1 workspace number $ws1
-bindsym $mod+2 workspace number $ws2
-bindsym $mod+3 workspace number $ws3
-bindsym $mod+4 workspace number $ws4
+bindsym $mod+y workspace number $ws1
+bindsym $mod+u workspace number $ws2
+bindsym $mod+i workspace number $ws3
+bindsym $mod+o workspace number $ws4
 
 # === MOVE FOCUSED CONTAINER TO WORKSPACE ===
-bindsym $mod+Shift+1 move container to workspace number $ws1
-bindsym $mod+Shift+2 move container to workspace number $ws2
-bindsym $mod+Shift+3 move container to workspace number $ws3
-bindsym $mod+Shift+4 move container to workspace number $ws4
-bindsym $mod+Shift+5 move container to workspace number $ws5
-bindsym $mod+Shift+6 move container to workspace number $ws6
-bindsym $mod+Shift+7 move container to workspace number $ws7
-bindsym $mod+Shift+8 move container to workspace number $ws8
-bindsym $mod+Shift+9 move container to workspace number $ws9
-bindsym $mod+Shift+0 move container to workspace number $ws10
+bindsym $mod+Shift+y move container to workspace number $ws1
+bindsym $mod+Shift+u move container to workspace number $ws2
+bindsym $mod+Shift+i move container to workspace number $ws3
+bindsym $mod+Shift+o move container to workspace number $ws4
 
 # === RELOAD SWAY ===
 bindsym $mod+r reload
