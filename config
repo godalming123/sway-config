@@ -52,6 +52,7 @@ default_border none
 hide_edge_borders --i3 smart # hide titlebars if their is only one window in a container
 
 # === INPUTS ===
+input "type:keyboard" xkb_options "caps:backspace"
 input "type:touchpad" {
 	dwt enabled
 	tap enabled
