@@ -7,7 +7,7 @@ test -d /sys/class/power_supply/BAT0/ && (
 	
 	# Add an indicator for if the charge is increasing, decreasing, or staying the same
 	bat_status=$(< /sys/class/power_supply/BAT0/status)
-	test "$bat_status" "==" Full && echo -n ■ :
+	test "$bat_status" "==" Full && echo -n ■
 	test "$bat_status" "==" Charging && echo -n ▲
 	test "$bat_status" "==" Discharging && echo -n ▼
 	test "$bat_status" "==" "Not charging" && echo -n ○
