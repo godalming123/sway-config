@@ -6,9 +6,11 @@ test -d /sys/class/power_supply/BAT0/ && (
 	test $(cat /sys/class/power_supply/BAT0/capacity) -lt 30 && echo -n 🪫
 	
 	# Add an indicator for if the charge is increasing, decreasing, or staying the same
-	test $(cat /sys/class/power_supply/BAT0/status) "==" Full && echo -n ⎯
-	test $(cat /sys/class/power_supply/BAT0/status) "==" Charging && echo -n ▲
-	test $(cat /sys/class/power_supply/BAT0/status) "==" Discharging && echo -n ▼
+	bat_status=$(< /sys/class/power_supply/BAT0/status)
+	test "$bat_status" "==" Full && echo -n ■ :
+	test "$bat_status" "==" Charging && echo -n ▲
+	test "$bat_status" "==" Discharging && echo -n ▼
+	test "$bat_status" "==" "Not charging" && echo -n ○
 	
 	# Add the percentage charge
 	echo -n "$(cat /sys/class/power_supply/BAT0/capacity)% ○ "
