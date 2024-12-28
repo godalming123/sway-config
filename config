@@ -26,7 +26,7 @@
 # =====================
 
 # === MODKEY ===
-set $mod Backspace
+set $mod Super
 
 # === WORKSPACES ===
 set $ws1 "1"
@@ -53,7 +53,7 @@ default_border none
 hide_edge_borders --i3 smart # hide titlebars if their is only one window in a container
 
 # === INPUTS ===
-input "type:keyboard" xkb_options "caps:backspace"
+input "type:keyboard" xkb_options "caps:super"
 input "type:touchpad" {
 	dwt enabled
 	tap enabled
@@ -94,6 +94,7 @@ bar {
 # =======================
 
 # === Rebind keys to be closer ===
+bindsym --no-repeat --release Super_L exec wtype -P backspace -p backspace # Press super (caps lock) -> backspace
 bindsym --no-repeat --release Shift_L exec wtype -P return -p return # Press shift -> enter
 bindsym --no-repeat --release Alt_L exec wtype -P escape -p escape # Press alt -> escape
 
