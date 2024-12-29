@@ -147,8 +147,8 @@ bindsym $mod+Ctrl+k resize shrink height 20 px
 bindsym $mod+Ctrl+l resize grow   width  20 px
 bindsym $mod+Ctrl+j resize grow   height 20 px
 
-# === FULLSCREEN FOCUSED ===
-bindsym $mod+m fullscreen toggle # m stands for maxamise
+# === MAXIMIZE FOCUSED ===
+bindsym $mod+m fullscreen
 
 # === FLOAT FOCUSED ===
 bindsym $mod+space floating toggle
