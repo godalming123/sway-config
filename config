@@ -26,7 +26,7 @@
 # =====================
 
 # === MODKEY ===
-set $mod Super
+set $mod Alt
 
 # === WORKSPACES ===
 set $ws1 "1"
@@ -53,7 +53,7 @@ default_border none
 hide_edge_borders --i3 smart # hide titlebars if their is only one window in a container
 
 # === INPUTS ===
-input "type:keyboard" xkb_options "caps:super"
+input "type:keyboard" xkb_options "ctrl:nocaps"
 input "type:touchpad" {
 	dwt enabled
 	tap enabled
@@ -94,9 +94,9 @@ bar {
 # =======================
 
 # === Rebind keys to be closer ===
-bindsym --no-repeat --release Super_L exec wtype -P backspace -p backspace # Press super (caps lock) -> backspace
-bindsym --no-repeat --release Shift_L exec wtype -P return -p return # Press shift -> enter
 bindsym --no-repeat --release Alt_L exec wtype -P escape -p escape # Press alt -> escape
+bindsym --no-repeat --release Control_L exec wtype -P backspace -p backspace # Press control (caps lock) -> backspace
+#bindsym --no-repeat --release Shift_L exec wtype -P return -p return # Press shift -> enter
 
 # === SLEEP/SUSPEND ===
 bindsym $mod+x exec systemctl suspend
@@ -113,11 +113,13 @@ bindsym XF86MonBrightnessUp   exec brightnessctl s 5%+
 
 # === OPEN APPS ===
 # TERMINALS
+bindsym $mod+t exec swaymsg "[app_id=ghostty|alacritty|gnome-terminal|foot] focus"
 bindsym $mod+g exec ghostty
 bindsym $mod+Shift+g exec gnome-terminal
 bindsym $mod+a exec alacrity
 bindsym $mod+f exec foot
 # BROWSERS
+bindsym $mod+b exec swaymsg "[app_id=qutebrowser|zen-browser|firefox|epiphany|chromium] focus"
 bindsym $mod+z exec zen-browser
 bindsym $mod+Shift+f exec firefox
 bindsym $mod+e exec epiphany
@@ -154,7 +156,7 @@ bindsym $mod+m fullscreen
 bindsym $mod+space floating toggle
 
 # === CHANGE CONTAINER LAYOUT ===
-bindsym $mod+t layout tabbed
+bindsym $mod+Shift+t layout tabbed
 bindsym $mod+s layout toggle split
 
 # === SWITCH WORKSPACE ===
