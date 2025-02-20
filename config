@@ -6,6 +6,7 @@
 ### GENERAL SCRIPTING: ###                               #
 # sh                                                     #
 # sleep                                                  #
+# nushell (for the `update-prev-focus.nu` script only)   #
 ### GETTING SYSTEM STATUS: ###                           #
 # cat                                                    #
 # free                                                   #
@@ -44,6 +45,12 @@ set $urgent-color     #e06c75
 # ====================
 # ===== SETTINGS =====
 # ====================
+
+# === STARTUP CODE ===
+exec ~/.config/sway/update-prev-focus.nu
+
+# (See: https://github.com/swaywm/sway/wiki#systemd-and-dbus-activation-environments)
+exec systemctl --user import-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK I3SOCK XCURSOR_SIZE XCURSOR_THEME
 
 # === GENERAL ===
 workspace_layout tabbed
@@ -113,13 +120,13 @@ bindsym XF86MonBrightnessUp   exec brightnessctl s 5%+
 
 # === OPEN APPS ===
 # TERMINALS
-bindsym $mod+t exec swaymsg "[app_id=ghostty|alacritty|gnome-terminal|foot] focus"
+bindsym $mod+t [con_mark=_prev_terminal] focus
 bindsym $mod+g exec ghostty
 bindsym $mod+Shift+g exec gnome-terminal
-bindsym $mod+a exec alacrity
+bindsym $mod+a exec alacritty
 bindsym $mod+f exec foot
 # BROWSERS
-bindsym $mod+b exec swaymsg "[app_id=qutebrowser|zen-browser|firefox|epiphany|chromium] focus"
+bindsym $mod+b [con_mark=_prev_browser] focus
 bindsym $mod+z exec zen-browser
 bindsym $mod+Shift+f exec firefox
 bindsym $mod+e exec epiphany
