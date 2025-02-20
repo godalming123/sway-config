@@ -1,38 +1,39 @@
 #!/bin/nu
 
-mut terminal_ids = []
-mut browser_ids = []
+mut recently_used_windows = []
+
+def get_window_type [app_id] {
+  match $app_id {
+    "com.mitchellh.ghostty"|"Alacritty"|"org.gnome.Terminal"|"foot" => "terminal"
+    "qutebrowser"|"zen"|"org.mozilla.firefox"|"org.gnome.Epiphany"|"chromium-browser" => "browser"
+    _ => "other"
+  }
+}
 
 while true {
+  # Setup variables
   let event = ^swaymsg -t subscribe '["window"]' | from json
-  # A close window event still says that the window is focused
-  if ($event | get change) != "close" and ($event | get container.focused) == true {
-    let id = $event | get container.id
-
-    # Avoid duplicate items being in the id lists
-    $terminal_ids = $terminal_ids | filter {|e| $e != $id}
-    $browser_ids = $browser_ids | filter {|e| $e != $id}
-
-    # If there are any items left in the lists, then they must be the previously focused
-    # items, since we have just removed the currently focused item
-    if ($terminal_ids | length) > 0 {
-      swaymsg $"[con_id=($terminal_ids.0)] mark --add _prev_terminal"
-    }
-    if ($browser_ids | length) > 0 {
-      swaymsg $"[con_id=($browser_ids.0)] mark --add _prev_browser"
-    }
-
-    # Add the currently focused item to one of the lists if it is a browser or
-    # terminal
-    match ($event | get conatiner.app_id) {
-      # TODO: This does not work for xwayland apps
-      "com.mitchellh.ghostty"|"Alacritty"|"org.gnome.Terminal"|"foot" => {
-        $terminal_ids = $terminal_ids | prepend $id
-      },
-      "qutebrowser"|"zen"|"org.mozilla.firefox"|"org.gnome.Epiphany"|
-        "chromium-browser" => {
-        $browser_ids = $browser_ids | prepend $id
-      }
-    }
+  let id = $event | get container.id
+  let window_details = {
+    id: $id,
+    type: (get_window_type ($event | get container.app_id)),
   }
+
+  # Update $recently_used_windows
+  $recently_used_windows = match ($event | get change) {
+    "title"|"mark" => {continue}
+    "close" => ($recently_used_windows | filter {|e| $e.id != $id})
+    "focus" => ($recently_used_windows | filter {|e| $e.id != $id} | prepend $window_details)
+    "new"   => ($recently_used_windows | prepend $window_details)
+  }
+
+  # Set the _prev flags based on $recently_used_windows
+  $recently_used_windows | skip 1 | (reduce --fold [] {|window, accumulator| 
+    if ($accumulator | filter {|type| $type == $window.type} | length) > 0 {
+      $accumulator
+    } else {
+      swaymsg $"[con_id=($window.id)] mark --add _prev_($window.type)"
+      $accumulator | append $window.type
+    }
+  })
 }
