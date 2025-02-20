@@ -2,25 +2,26 @@
 # MY SWAY CONFIG #
 ##################
 
-###### DEPENDENCIES ######################################
-### GENERAL SCRIPTING: ###                               #
-# sh                                                     #
-# sleep                                                  #
-# nushell (for the `update-prev-focus.nu` script only)   #
-### GETTING SYSTEM STATUS: ###                           #
-# cat                                                    #
-# free                                                   #
-# date                                                   #
-### TEXT MANIPULATION: ###                               #
-# echo                                                   #
-# test                                                   #
-# grep                                                   #
-# awk                                                    #
-### OTHER: ###                                           #
-# pactl for volume (called 'pulseaudio-utils') on fedora #
-# brightnessctl for brightness                           #
-# wtype to input keypresses into apps                    #
-##########################################################
+###### DEPENDENCIES ##################################################
+### GENERAL SCRIPTING: ###                                           #
+# sh                                                                 #
+# sleep                                                              #
+# nushell (for the `update-prev-focus.nu` script only)               #
+### GETTING SYSTEM STATUS: ###                                       #
+# cat                                                                #
+# free                                                               #
+# date                                                               #
+### TEXT MANIPULATION: ###                                           #
+# echo                                                               #
+# test                                                               #
+# grep                                                               #
+# awk                                                                #
+### OTHER: ###                                                       #
+# pactl for volume (called 'pulseaudio-utils') on fedora             #
+# brightnessctl for brightness                                       #
+# wtype to input keypresses into apps                                #
+# jetbrains mono font (`jetbrains-mono-fonts-all` package on fedora) #
+######################################################################
 
 # =====================
 # ===== VARIABLES =====
@@ -49,8 +50,12 @@ set $urgent-color     #e06c75
 # === STARTUP CODE ===
 exec ~/.config/sway/update-prev-focus.nu
 
+# Fixes gnome terminal
 # (See: https://github.com/swaywm/sway/wiki#systemd-and-dbus-activation-environments)
+# (See: https://gitlab.archlinux.org/archlinux/packaging/packages/sway/-/blob/main/50-systemd-user.conf?ref_type=heads)
+exec systemctl --user set-environment XDG_CURRENT_DESKTOP=sway
 exec systemctl --user import-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK I3SOCK XCURSOR_SIZE XCURSOR_THEME
+exec hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway WAYLAND_DISPLAY
 
 # === GENERAL ===
 workspace_layout tabbed
@@ -58,6 +63,7 @@ title_align center
 output "*" bg ./wallpaper.jpg fit $bg-color
 default_border none
 hide_edge_borders --i3 smart # hide titlebars if their is only one window in a container
+font JetBrains Mono 12 # I use this font for consistancy with ghostty default font
 
 # === INPUTS ===
 input "type:keyboard" xkb_options "ctrl:nocaps"
@@ -129,11 +135,12 @@ bindsym $mod+f exec foot
 bindsym $mod+b [con_mark=_prev_browser] focus
 bindsym $mod+z exec zen-browser
 bindsym $mod+Shift+f exec firefox
-bindsym $mod+e exec epiphany
 bindsym $mod+q exec qutebrowser
 bindsym $mod+c exec chromium-browser
+# Fixes dark mode (See: https://github.com/NixOS/nixpkgs/issues/274554#issuecomment-2637079431)
+bindsym $mod+e exec ADW_DISABLE_PORTAL=1 epiphany
 # FILE MANAGERS
-bindsym $mod+n exec nautilus
+bindsym $mod+n exec ADW_DISABLE_PORTAL=1 nautilus
 
 # === KILL FOCUSED ===
 bindsym $mod+d kill # d stands for delete
