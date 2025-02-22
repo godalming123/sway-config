@@ -1,4 +1,4 @@
-#!/bin/nu
+#!/bin/env nu
 
 def get_window_type [container] {
   match $container.app_id {
@@ -23,13 +23,13 @@ swaymsg -m -t subscribe '["window"]' | lines | reduce --fold [] {
     id: $event.container.id,
     type: (get_window_type $event.container),
   }
-  let out = $recently_used_windows | match $event.change {
+  let out = match $event.change {
     # See the window section of the events section of the `man 7 sway-ipc`
     # command output for a full list of events.
-    "new"   => ($in | prepend $window_details)
-    "close" => ($in | filter {|e| $e.id != $event.contaier.id})
-    "focus" => ($in | filter {|e| $e.id != $event.contaier.id} | prepend $window_details)
-    _       => {return $in}
+    "new"   => ($recently_used_windows | prepend $window_details)
+    "close" => ($recently_used_windows | filter {|e| $e.id != $event.container.id})
+    "focus" => ($recently_used_windows | filter {|e| $e.id != $event.container.id} | prepend $window_details)
+    _       => {return $recently_used_windows}
   }
 
   # Set the _prev flags based on $out

@@ -194,4 +194,4 @@ bindsym $mod+Shift+i move container to workspace number $ws3
 bindsym $mod+r reload
 
 # === EXIT SWAY ===
-bindsym $mod+Escape exec "swaymsg exit"
+bindsym $mod+Tab exit
