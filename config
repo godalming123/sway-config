@@ -34,7 +34,6 @@ set $mod Alt
 set $ws1 "1"
 set $ws2 "2"
 set $ws3 "3"
-set $ws4 "4"
 
 # === COLORS ===
 set $text-color       #ffffff
@@ -62,8 +61,12 @@ workspace_layout tabbed
 title_align center
 output "*" bg ./wallpaper.jpg fit $bg-color
 default_border none
-hide_edge_borders --i3 smart # hide titlebars if their is only one window in a container
-font JetBrains Mono 12 # I use this font for consistancy with ghostty default font
+
+# Hides the titlebars if there is only one window in a container
+hide_edge_borders --i3 smart
+
+# I use this font for consistancy with the default font in ghostty
+font JetBrains Mono 12
 
 # === INPUTS ===
 input "type:keyboard" xkb_options "ctrl:nocaps"
@@ -131,8 +134,10 @@ bindsym $mod+g exec ghostty
 bindsym $mod+Shift+g exec gnome-terminal
 bindsym $mod+a exec alacritty
 bindsym $mod+f exec foot
+# DE[B]UGGER
+bindsym $mod+b [con_mark=_prev_debugger] focus
 # BROWSERS
-bindsym $mod+b [con_mark=_prev_browser] focus
+bindsym $mod+w [con_mark=_prev_web_browser] focus
 bindsym $mod+z exec zen-browser
 bindsym $mod+Shift+f exec firefox
 bindsym $mod+q exec qutebrowser
@@ -141,6 +146,8 @@ bindsym $mod+c exec chromium-browser
 bindsym $mod+e exec ADW_DISABLE_PORTAL=1 epiphany
 # FILE MANAGERS
 bindsym $mod+n exec ADW_DISABLE_PORTAL=1 nautilus
+# OTHER
+bindsym $mod+o [con_mark=_prev_other] focus
 
 # === KILL FOCUSED ===
 bindsym $mod+d kill # d stands for delete
@@ -177,13 +184,11 @@ bindsym $mod+s layout toggle split
 bindsym $mod+y workspace number $ws1
 bindsym $mod+u workspace number $ws2
 bindsym $mod+i workspace number $ws3
-bindsym $mod+o workspace number $ws4
 
 # === MOVE FOCUSED CONTAINER TO WORKSPACE ===
 bindsym $mod+Shift+y move container to workspace number $ws1
 bindsym $mod+Shift+u move container to workspace number $ws2
 bindsym $mod+Shift+i move container to workspace number $ws3
-bindsym $mod+Shift+o move container to workspace number $ws4
 
 # === RELOAD SWAY ===
 bindsym $mod+r reload
