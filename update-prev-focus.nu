@@ -1,16 +1,20 @@
 #!/bin/env nu
 
 def get_window_type [container] {
+  # Use `swaymsg -t get_tree` to see the properties of a window if you want to
+  # add it to a window type or create a new window type for it.
   match $container.app_id {
     "com.mitchellh.ghostty"|"Alacritty"|"org.gnome.Terminal"|"foot" => {return "terminal"}
     "org.qutebrowser.qutebrowser"|"zen"|"org.mozilla.firefox"|"org.gnome.Epiphany"|"chromium-browser" => {return "web_browser"}
+    "totem" => {return "video_player"}
   }
   match $container.window_properties?.class? {
     "Chromium-browser" => {return "web_browser"}
+    "MuseScore4" => {return "music"}
   }
   match $container.name {
     "gf2" => "debugger"
-    _ => "other"
+    _ => "unknown"
   }
 }
 

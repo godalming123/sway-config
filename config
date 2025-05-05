@@ -30,11 +30,6 @@
 # === MODKEY ===
 set $mod Alt
 
-# === WORKSPACES ===
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-
 # === COLORS ===
 set $text-color       #ffffff
 set $faded-text-color #abb2bf
@@ -47,7 +42,7 @@ set $urgent-color     #e06c75
 # ====================
 
 # === STARTUP CODE ===
-exec ~/.config/sway/update-prev-focus.nu
+exec nu ~/.config/sway/update-prev-focus.nu
 
 # Fixes gnome terminal
 # (See: https://github.com/swaywm/sway/wiki#systemd-and-dbus-activation-environments)
@@ -133,7 +128,7 @@ bindsym $mod+t [con_mark=_prev_terminal] focus
 bindsym $mod+g exec ghostty
 bindsym $mod+Shift+g exec gnome-terminal
 bindsym $mod+a exec alacritty
-bindsym $mod+f exec foot
+bindsym $mod+o exec foot
 # DE[B]UGGER
 bindsym $mod+b [con_mark=_prev_debugger] focus
 # BROWSERS
@@ -146,8 +141,12 @@ bindsym $mod+c exec chromium-browser
 bindsym $mod+e exec ADW_DISABLE_PORTAL=1 epiphany
 # FILE MANAGERS
 bindsym $mod+n exec ADW_DISABLE_PORTAL=1 nautilus
-# OTHER
-bindsym $mod+o [con_mark=_prev_other] focus
+# VIDEO PLAYERS
+bindsym $mod+v [con_mark=_prev_video_player] focus
+# MUSIC COMPOSITION SOFTWARE
+bindsym $mod+m [con_mark=_prev_music] focus
+# UNKNOWN
+bindsym $mod+u [con_mark=_prev_unknown] focus
 
 # === KILL FOCUSED ===
 bindsym $mod+d kill # d stands for delete
@@ -170,8 +169,8 @@ bindsym $mod+Ctrl+k resize shrink height 20 px
 bindsym $mod+Ctrl+l resize grow   width  20 px
 bindsym $mod+Ctrl+j resize grow   height 20 px
 
-# === MAXIMIZE FOCUSED ===
-bindsym $mod+m fullscreen
+# === FULLSCREEN FOCUSED ===
+bindsym $mod+f fullscreen
 
 # === FLOAT FOCUSED ===
 bindsym $mod+space floating toggle
@@ -181,14 +180,14 @@ bindsym $mod+Shift+t layout tabbed
 bindsym $mod+s layout toggle split
 
 # === SWITCH WORKSPACE ===
-bindsym $mod+y workspace number $ws1
-bindsym $mod+u workspace number $ws2
-bindsym $mod+i workspace number $ws3
+bindsym $mod+y workspace y
+bindsym $mod+i workspace i
+bindsym $mod+p workspace p
 
 # === MOVE FOCUSED CONTAINER TO WORKSPACE ===
-bindsym $mod+Shift+y move container to workspace number $ws1
-bindsym $mod+Shift+u move container to workspace number $ws2
-bindsym $mod+Shift+i move container to workspace number $ws3
+bindsym $mod+Shift+y move container to workspace y
+bindsym $mod+Shift+i move container to workspace i
+bindsym $mod+Shift+p move container to workspace p
 
 # === RELOAD SWAY ===
 bindsym $mod+r reload
