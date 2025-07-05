@@ -6,6 +6,7 @@ def get_window_type [container] {
   match $container.app_id {
     "com.mitchellh.ghostty"|"Alacritty"|"org.gnome.Terminal"|"foot" => {return "terminal"}
     "org.qutebrowser.qutebrowser"|"zen"|"org.mozilla.firefox"|"org.gnome.Epiphany"|"chromium-browser" => {return "web_browser"}
+    "org.musescore.MuseScore" => {return "music"}
     "totem" => {return "video_player"}
   }
   match $container.window_properties?.class? {

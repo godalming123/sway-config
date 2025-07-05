@@ -21,6 +21,7 @@
 # brightnessctl for brightness                                       #
 # wtype to input keypresses into apps                                #
 # jetbrains mono font (`jetbrains-mono-fonts-all` package on fedora) #
+# grim for screenshots                                               #
 ######################################################################
 
 # =====================
@@ -56,6 +57,15 @@ workspace_layout tabbed
 title_align center
 output "*" bg ./wallpaper.jpg fit $bg-color
 default_border none
+
+# Move the mouse to the center of the focused container when you change which container is focused with the keyboard
+# TODO: This is disabled right now because:
+# - It causes the mouse to re-appear when it is hidden due to inactivity
+# - It moves the mouse when you use the mouse to navigate workspaces (this should only move the mouse when you use the keyboard to change which conatiner is focused)
+# mouse_warping container
+
+# Hide the cursor after 3 seconds of inactivity
+seat * hide_cursor 3000
 
 # Hides the titlebars if there is only one window in a container
 hide_edge_borders --i3 smart
@@ -112,6 +122,9 @@ bindsym --no-repeat --release Control_L exec wtype -P backspace -p backspace # P
 # === SLEEP/SUSPEND ===
 bindsym $mod+x exec systemctl suspend
 
+# === SCREENSHOT ===
+bindsym $mod+s exec grim
+
 # === ADJUST VOLUME ===
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
@@ -121,6 +134,12 @@ bindsym XF86AudioMicMute     exec --no-startup-id pactl set-source-mute @DEFAULT
 # === ADJUST BRIGHTNESS ===
 bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
 bindsym XF86MonBrightnessUp   exec brightnessctl s 5%+
+
+# === SEND A KEYPRESS WITH $MOD IN IT TO THE FOCUSED WINDOW ===
+bindsym $mod+Shift+s mode "send-keypress"
+mode "send-keypress" {
+  bindsym Escape mode "default"
+}
 
 # === OPEN APPS ===
 # TERMINALS
@@ -174,10 +193,6 @@ bindsym $mod+f fullscreen
 
 # === FLOAT FOCUSED ===
 bindsym $mod+space floating toggle
-
-# === CHANGE CONTAINER LAYOUT ===
-bindsym $mod+Shift+t layout tabbed
-bindsym $mod+s layout toggle split
 
 # === SWITCH WORKSPACE ===
 bindsym $mod+y workspace y
