@@ -2,27 +2,28 @@
 # MY SWAY CONFIG #
 ##################
 
-###### DEPENDENCIES ##################################################
-### GENERAL SCRIPTING: ###                                           #
-# sh                                                                 #
-# sleep                                                              #
-# nushell (for the `update-prev-focus.nu` script only)               #
-### GETTING SYSTEM STATUS: ###                                       #
-# cat                                                                #
-# free                                                               #
-# date                                                               #
-### TEXT MANIPULATION: ###                                           #
-# echo                                                               #
-# test                                                               #
-# grep                                                               #
-# awk                                                                #
-### OTHER: ###                                                       #
-# pactl for volume (called 'pulseaudio-utils') on fedora             #
-# brightnessctl for brightness                                       #
-# wtype to input keypresses into apps                                #
-# jetbrains mono font (`jetbrains-mono-fonts-all` package on fedora) #
-# grim for screenshots                                               #
-######################################################################
+###### DEPENDENCIES ########################################################################
+### GENERAL SCRIPTING: ###                                                                 #
+# sh                                                                                       #
+# sleep                                                                                    #
+# nushell (only for the `update-prev-focus.nu` and `toggle-reduced-blue-light.nu` scripts) #
+### GETTING SYSTEM STATUS: ###                                                             #
+# cat                                                                                      #
+# free                                                                                     #
+# date                                                                                     #
+### TEXT MANIPULATION: ###                                                                 #
+# echo                                                                                     #
+# test                                                                                     #
+# grep                                                                                     #
+# awk                                                                                      #
+### OTHER: ###                                                                             #
+# pactl for volume (called 'pulseaudio-utils') on fedora                                   #
+# brightnessctl for brightness                                                             #
+# wtype to input keypresses into apps                                                      #
+# jetbrains mono font (`jetbrains-mono-fonts-all` package on fedora)                       #
+# grim for screenshots                                                                     #
+# gammastep for reduce blue light mode                                                     #
+############################################################################################
 
 # =====================
 # ===== VARIABLES =====
@@ -204,8 +205,11 @@ bindsym $mod+Shift+y move container to workspace y
 bindsym $mod+Shift+i move container to workspace i
 bindsym $mod+Shift+p move container to workspace p
 
+# === TOGGLE REDUCED BLUE LIGHT ===
+bindsym $mod+r exec nu ~/.config/sway/toggle-reduced-blue-light.nu
+
 # === RELOAD SWAY ===
-bindsym $mod+r reload
+bindsym $mod+Shift+r reload
 
 # === EXIT SWAY ===
 bindsym $mod+Tab exit
